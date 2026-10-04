@@ -1,0 +1,10 @@
+node_modules/
+package-lock.json
+src/
+test/e2e/vendor/
+test/e2e/.build/
+test/e2e/.deps/
+test-results/
+playwright-report/
+.abaplint-deps/
+dist/

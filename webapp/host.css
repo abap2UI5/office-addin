@@ -1,0 +1,66 @@
+/* The task pane is narrow (about 320 to 350 px on the desktop) and as tall
+   as the window: the app gets every pixel below the message line, and the
+   embedded abap2UI5 app scrolls inside its own pages. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.z2ui5xlRoot {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.z2ui5xlApp {
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+}
+
+.z2ui5xlMessage {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-family: "72", "72full", Arial, Helvetica, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  border-bottom: 1px solid #d9d9d9;
+  background: #f5f6f7;
+  color: #1d2d3e;
+}
+
+.z2ui5xlMessage[hidden] {
+  display: none;
+}
+
+.z2ui5xlMessage-info {
+  background: #e1f4ff;
+}
+
+.z2ui5xlMessage-warning {
+  background: #fff8d6;
+}
+
+.z2ui5xlMessage-error {
+  background: #ffeaf4;
+  color: #aa0808;
+}
+
+.z2ui5xlMessageText {
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+}
+
+.z2ui5xlMessageClose {
+  flex: 0 0 auto;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.125rem;
+}

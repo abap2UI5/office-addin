@@ -1,0 +1,24 @@
+{
+  "welcomeFile": "/index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/sap/bc/z2ui5(.*)$",
+      "target": "/sap/bc/z2ui5$1",
+      "destination": "abap2ui5",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/resources/(.*)$",
+      "target": "/1.136.21/resources/$1",
+      "destination": "ui5",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/(.*)$",
+      "target": "$1",
+      "localDir": "dist",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}

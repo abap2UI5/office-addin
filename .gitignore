@@ -1,0 +1,9 @@
+node_modules/
+.abaplint-deps/
+*.log
+test-results/
+playwright-report/
+test/e2e/.build/
+test/e2e/.deps/
+/manifest.xml
+dist/
