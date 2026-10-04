@@ -1,0 +1,56 @@
+{
+  "name": "abap2ui5-office-addin",
+  "private": true,
+  "version": "0.1.0",
+  "description": "abap2UI5 apps in Microsoft Excel: an Office add-in (task pane) that runs the real abap2UI5 UI5 frontend next to the workbook, with z2ui5.cc.ExcelBridge for reading and writing cells.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abap2UI5/office-addin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/abap2UI5/office-addin/issues"
+  },
+  "homepage": "https://github.com/abap2UI5/office-addin#readme",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "manifest": "node scripts/manifest.mjs",
+    "bsp": "node scripts/build-bsp.mjs",
+    "bsp:check": "node scripts/build-bsp.mjs --check",
+    "dist": "node scripts/build-bsp.mjs --dist",
+    "test": "node --test \"test/*.test.mjs\"",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{js,mjs,json,css}\"",
+    "format:check": "prettier --check \"**/*.{js,mjs,json,css}\"",
+    "abaplint": "abaplint ./abaplint.jsonc",
+    "abaplint:cloud": "abaplint .github/abaplint/abap_cloud.jsonc",
+    "abaplint:702": "abaplint .github/abaplint/abap_702.jsonc",
+    "downport": "abaplint --fix .github/abaplint/abap_702.jsonc",
+    "check:abap2ui5": "abap2ui5lint",
+    "fmt:chains": "abap2ui5lint --fix",
+    "e2e:build": "node test/e2e/build-backend.mjs",
+    "e2e:serve": "node test/e2e/server.mjs",
+    "e2e": "playwright test",
+    "check": "npm run lint && npm run format:check && npm test && npm run bsp:check && npm run abaplint && npm run abaplint:cloud && npm run check:abap2ui5"
+  },
+  "dependencies": {
+    "@abap2ui5/embed-control": "0.1.1"
+  },
+  "devDependencies": {
+    "@abap2ui5/linter": "^0.8.5",
+    "@abap2ui5/node-runtime": "1.146.0",
+    "@abaplint/cli": "^2.120.65",
+    "@abaplint/transpiler-cli": "2.13.93",
+    "@eslint/js": "^10.0.1",
+    "@openui5/sap.m": "1.136.21",
+    "@playwright/test": "1.63.0",
+    "eslint": "^10.11.0",
+    "express": "5.2.1",
+    "globals": "^17.12.0",
+    "office-addin-manifest": "3.0.1",
+    "prettier": "^3.9.9",
+    "ui5-1.71-sap.m": "npm:@openui5/sap.m@1.71.81"
+  }
+}

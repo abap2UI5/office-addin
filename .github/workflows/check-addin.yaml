@@ -1,0 +1,78 @@
+name: check-addin
+
+# The add-in's own files: ESLint and Prettier, the Node tests (manifest
+# generator, BSP format, host page rules), the generated BSP src/02 against
+# webapp/ and the embed control of the lockfile (bsp:check), and a manifest
+# written by npm run manifest through Microsoft's validation service
+# (office-addin-manifest validate - an online service, which is why the
+# Node tests check the manifest offline as well).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "37 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-addin-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm test
+      - run: npm run bsp:check
+
+  manifest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # no usage data from CI runs
+      - run: npx office-addin-usage-data off
+      - name: Write a manifest
+        run: >-
+          npm run manifest --
+          --host https://my.sap.example
+          --path /sap/bc/ui5_ui5/sap/z2ui5_xl/index.html
+          --app Z2UI5_CL_XL_DEMO
+          --client 100
+          --app-domain https://idp.example
+          --out manifest.xml
+      - name: Validate it with Microsoft's validation service
+        run: |
+          for wait in 0 10 30; do
+            sleep "$wait"
+            if npx office-addin-manifest validate manifest.xml | tee validate.log; then
+              grep -q "The manifest is valid" validate.log && exit 0
+            fi
+          done
+          exit 1
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: manifest
+          path: |
+            manifest.xml
+            validate.log
+          if-no-files-found: ignore

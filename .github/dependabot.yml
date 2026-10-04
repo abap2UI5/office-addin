@@ -1,0 +1,33 @@
+# The workflows pin every action to a commit SHA with the version in a
+# trailing comment (abap2UI5 CONVENTIONS section 2); this moves those pins.
+# npm: the embed control (it is copied into the BSP - run npm run bsp with
+# the bump), the linters and the test toolchain. @abap2ui5/node-runtime and
+# @abaplint/transpiler-cli move together by hand: the transpiler has to be
+# the version the runtime names (test/e2e/build-backend.mjs refuses others).
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+      actions-major:
+        patterns: ["*"]
+        update-types: ["major"]
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    ignore:
+      - dependency-name: "@abap2ui5/node-runtime"
+      - dependency-name: "@abaplint/transpiler-cli"
+      - dependency-name: "@openui5/sap.m"
+      - dependency-name: "ui5-1.71-sap.m"
+    groups:
+      tooling:
+        patterns: ["*"]
+        exclude-patterns: ["@abap2ui5/embed-control"]

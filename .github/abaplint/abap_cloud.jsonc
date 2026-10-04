@@ -1,0 +1,44 @@
+{
+  "global": {
+    "files": "/../../src/**/*.*",
+    // the BSP of the host page: ABAP Cloud has no BSP applications - there
+    // the host page is served next to the system (README, "ABAP Cloud")
+    "exclude": ["/src/02/z2ui5_xl"]
+  },
+  "dependencies": [
+    {
+      "url": "https://github.com/abapedia/steampunk-2305-api-intersect-702",
+      "folder": "/../../.abaplint-deps/steampunk",
+      "files": "/src/**/*.*"
+    },
+    {
+      // main, declared (CONVENTIONS section 9): the demo needs the abap2UI5
+      // with z2ui5.cc.ExcelBridge (#2847), which no release has yet - its
+      // ABAP uses nothing newer than 1.146.0, so a release tag can replace
+      // this with the first release that ships the control
+      "url": "https://github.com/abap2UI5/abap2UI5",
+      "branch": "main",
+      "folder": "/../../.abaplint-deps/abap2UI5",
+      "files": "/src/**/*.*"
+    }
+  ],
+  "syntax": {
+    "version": "Cloud",
+    "errorNamespace": "."
+  },
+  "rules": {
+    "downport": true,
+    "begin_end_names": true,
+    "check_ddic": true,
+    "check_include": true,
+    "check_syntax": true,
+    "global_class": true,
+    "definitions_top": false,
+    "implement_methods": true,
+    "method_implemented_twice": true,
+    "parser_error": true,
+    "superclass_final": true,
+    "unknown_types": true,
+    "xml_consistency": true
+  }
+}

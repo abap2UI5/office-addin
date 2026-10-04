@@ -1,0 +1,27 @@
+{
+  // abap2UI5-linter - checks the app class and the views it builds without
+  // an SAP system: controls, properties and aggregations against the UI5
+  // 1.71 floor, bindings, events, the builder chain layout and the use of
+  // non-released abap2UI5 objects. See https://github.com/abap2UI5/linter
+  "$schema": "./node_modules/@abap2ui5/linter/data/abap2ui5lint.schema.json",
+
+  // the demo app; src/02 is the generated BSP of the host page, no ABAP
+  "paths": ["src/01"],
+
+  // the floor abap2UI5 itself supports, and the default bootstrap (OpenUI5)
+  "ui5": "1.71",
+  "distribution": "openui5",
+
+  // the render gate needs @abap2ui5/linter-render and a browser; the property
+  // and structure gates run without them. The Playwright smoke test
+  // (npm run e2e) renders the view for real, in the add-in's host page.
+  "render": false,
+
+  "rules": {
+    // the house layout of the view builder chain (view-chain-layout skill)
+    "chain-house-layout": { "severity": "warning" },
+    "missing-on-navigated-branch": "warning"
+  },
+
+  "failOn": "warning"
+}

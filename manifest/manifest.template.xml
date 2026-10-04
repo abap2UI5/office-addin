@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The add-in only manifest (XML) of the abap2UI5 Excel add-in - a TEMPLATE.
+  Do not fill it in by hand: scripts/manifest.mjs (npm run manifest) writes
+  a ready manifest from it - README, "The manifest".
+  Every name in double braces below is a placeholder the script replaces.
+
+  Task pane, Excel only (Workbook), ReadWriteDocument, ExcelApi 1.4 - the
+  newest API set z2ui5.cc.ExcelBridge uses (Range.getUsedRangeOrNullObject).
+  One ribbon button on the Home tab opens the task pane.
+-->
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xsi:type="TaskPaneApp">
+  <Id>{{ID}}</Id>
+  <Version>{{VERSION}}</Version>
+  <ProviderName>{{PROVIDER}}</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="{{NAME}}"/>
+  <Description DefaultValue="{{DESCRIPTION}}"/>
+  <IconUrl DefaultValue="{{ICON_32}}"/>
+  <HighResolutionIconUrl DefaultValue="{{ICON_64}}"/>
+  <SupportUrl DefaultValue="{{SUPPORT_URL}}"/>
+  <AppDomains>
+{{APP_DOMAINS}}
+  </AppDomains>
+  <Hosts>
+    <Host Name="Workbook"/>
+  </Hosts>
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="ExcelApi" MinVersion="1.4"/>
+    </Sets>
+  </Requirements>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="{{SOURCE_URL}}"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Workbook">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <FunctionFile resid="Commands.Url"/>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="Z2UI5XL.Group">
+                <Label resid="Group.Label"/>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16"/>
+                  <bt:Image size="32" resid="Icon.32x32"/>
+                  <bt:Image size="80" resid="Icon.80x80"/>
+                </Icon>
+                <Control xsi:type="Button" id="Z2UI5XL.TaskpaneButton">
+                  <Label resid="TaskpaneButton.Label"/>
+                  <Supertip>
+                    <Title resid="TaskpaneButton.Label"/>
+                    <Description resid="TaskpaneButton.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16"/>
+                    <bt:Image size="32" resid="Icon.32x32"/>
+                    <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>Z2UI5XL.Taskpane</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="{{ICON_16}}"/>
+        <bt:Image id="Icon.32x32" DefaultValue="{{ICON_32}}"/>
+        <bt:Image id="Icon.80x80" DefaultValue="{{ICON_80}}"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="{{SUPPORT_URL}}"/>
+        <bt:Url id="Commands.Url" DefaultValue="{{COMMANDS_URL}}"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="{{SOURCE_URL}}"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GetStarted.Title" DefaultValue="{{NAME}} is ready"/>
+        <bt:String id="Group.Label" DefaultValue="abap2UI5"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="{{BUTTON}}"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="Open it with the {{BUTTON}} button on the Home tab."/>
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="{{DESCRIPTION}}"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
