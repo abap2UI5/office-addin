@@ -53,6 +53,10 @@ const ICF_TEXT = "abap2UI5 Excel add-in";
 const START_PAGE = "index.html";
 const LINE = 255;
 const BOM = "\uFEFF";
+// CL_O2_API_PAGES=>CREATE_NEW_PAGE refuses any other page name with
+// sy-subrc=2 (invalid_name), and abapGit then fails the whole WAPA import -
+// a hyphen is enough (history-cache.js did it)
+export const VALID_PAGE_NAME = /^[A-Za-z0-9_./]+$/;
 
 // the place of the control in the app - its ui5.yaml serves it there, and
 // index.html registers it there (resource root z2ui5.embed)
@@ -280,6 +284,12 @@ export function buildFiles() {
   const seen = new Map();
   pages.set("UI5RepositoryPathMapping.xml", pathMapping([...pages.keys()]));
   for (const [name, content] of pages) {
+    if (!VALID_PAGE_NAME.test(name)) {
+      throw new Error(
+        `'${name}' is no BSP page name - CL_O2_API_PAGES takes only ` +
+          `letters, digits, "_", "." and "/"; rename the file`,
+      );
+    }
     const file = pageFileName(name);
     // lower case and / -> _- are not injective: refuse instead of losing one
     if (seen.has(file)) {

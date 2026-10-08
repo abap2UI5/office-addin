@@ -42,7 +42,7 @@ Three things are **not** here and must not be copied in:
 
 | Path | |
 |---|---|
-| `webapp/` | The host page, the source of the BSP: `index.html`, `host.js` (the UI5 module that starts the app), `office-init.js` and `history-cache.js` (around Office.js), `host.css`, `commands.html` (the manifest's FunctionFile) |
+| `webapp/` | The host page, the source of the BSP: `index.html`, `host.js` (the UI5 module that starts the app), `office_init.js` and `history_cache.js` (around Office.js), `host.css`, `commands.html` (the manifest's FunctionFile) |
 | `src/01/` | `Z2UI5_CL_XL_DEMO`, the demo app |
 | `src/02/` | **Generated**: the BSP `Z2UI5_XL` (pages, page directory, `UI5RepositoryPathMapping.xml`), its two ICF nodes, `package.devc.xml` - `npm run bsp` |
 | `manifest/` | `manifest.template.xml` and the icons it points at (`icons/icon-<size>.png`) |
@@ -61,12 +61,12 @@ These break silently - in Excel, where no test of ours runs. `test/bsp.test.mjs`
 holds most of them; keep it in step.
 
 - **Office.js in the head, from Microsoft's CDN, before UI5**:
-  `history-cache.js`, then
+  `history_cache.js`, then
   `https://officeapis.public.onecdn.static.microsoft/1/office.js`, then
-  `office-init.js`, then the UI5 bootstrap. Office.js must be in the top
+  `office_init.js`, then the UI5 bootstrap. Office.js must be in the top
   document and initialized before the body; it nulls
   `history.pushState`/`replaceState`, which the two files keep and restore
-  (Microsoft's documented workaround). `office-init.js` calls
+  (Microsoft's documented workaround). `office_init.js` calls
   `Office.onReady( )` at once - some hosts show no task pane until it is
   called.
 - **No inline script, no inline handler, no `eval`.** The page must run under
@@ -85,6 +85,9 @@ holds most of them; keep it in step.
   the URL parameters and `office_host` / `office_platform`, and shows one
   plain-DOM message line (textContent only) when Office or the app is not
   there. Everything else is the ABAP app's.
+- **Page names: letters, digits, `_`, `.` and `/` only.** A hyphen makes
+  `CL_O2_API_PAGES=>CREATE_NEW_PAGE` fail with `invalid_name`, and abapGit
+  then refuses the whole BSP; `build-bsp.mjs` refuses such a file.
 - **Long lines break the BSP.** A source line over 255 characters is refused
   by `build-bsp.mjs` (the system keeps pages as 255-character rows).
 - After any change to `webapp/` or a bump of `@abap2ui5/embed-control`:

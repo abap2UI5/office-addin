@@ -9,7 +9,7 @@
 // window.__stubHost (set by the test before the page loads) is what
 // Office.onReady( ) reports: "Excel" by default, null for "opened outside
 // Office". Like the real Office.js it sets history.pushState and
-// replaceState to null - office-init.js has to put them back.
+// replaceState to null - office_init.js has to put them back.
 (function () {
   "use strict";
   var host = window.__stubHost === undefined ? "Excel" : window.__stubHost;

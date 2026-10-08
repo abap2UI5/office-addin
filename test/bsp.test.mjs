@@ -49,6 +49,9 @@ test("every page is in the page directory, the start page is index.html", () => 
     (m) => m[1],
   );
   for (const page of pages) {
+    // CL_O2_API_PAGES=>CREATE_NEW_PAGE: anything else is invalid_name, and
+    // abapGit fails the whole BSP
+    assert.match(page, /^[A-Za-z0-9_./]+$/, `${page}: no BSP page name`);
     const file = `${BSP}.wapa.${page.replace(/\//g, "_-").toLowerCase()}`;
     assert.ok(files.has(file), `${page} -> ${file}`);
   }
@@ -80,12 +83,12 @@ test("the host page loads Office.js first, from Microsoft's CDN, in the head", (
   const office = head.indexOf(
     'src="https://officeapis.public.onecdn.static.microsoft/1/office.js"',
   );
-  const cache = head.indexOf('src="history-cache.js"');
-  const init = head.indexOf('src="office-init.js"');
+  const cache = head.indexOf('src="history_cache.js"');
+  const init = head.indexOf('src="office_init.js"');
   const ui5 = head.indexOf('src="resources/sap-ui-core.js"');
   assert.ok(
     cache >= 0 && office > cache && init > office && ui5 > init,
-    "history-cache, office.js, office-init, UI5",
+    "history_cache, office.js, office_init, UI5",
   );
 });
 
@@ -114,7 +117,7 @@ test("UI5 is bootstrapped from the system, frameable, with the add-in's roots", 
 
 test("host.js stays on the UI5 1.71 floor and away from eval", () => {
   const js =
-    webapp("host.js") + webapp("office-init.js") + webapp("history-cache.js");
+    webapp("host.js") + webapp("office_init.js") + webapp("history_cache.js");
   assert.doesNotMatch(
     js,
     /\beval\s*\(|new Function|innerHTML|insertAdjacentHTML|document\.write/,

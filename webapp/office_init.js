@@ -1,7 +1,7 @@
 // Runs right after Office.js (or after its script failed to load).
 //
 // 1. Puts back history.pushState / replaceState, which Office.js set to
-//    null (history-cache.js kept them).
+//    null (history_cache.js kept them).
 // 2. Calls Office.onReady( ) at once: some Office hosts do not show the
 //    task pane before an add-in has called it or set Office.initialize
 //    (Microsoft, "Initialize your Office Add-in"). host.js waits for the
