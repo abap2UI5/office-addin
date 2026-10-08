@@ -75,7 +75,7 @@ test("boots in Excel and renders the embedded app", async ({ page }) => {
   if (process.env.E2E_BRIDGE === "bundle") expect(bridge.vendored).toBe(false);
   await expect(page.getByText("Gearbox GX-400")).toBeVisible();
   await expect(page.locator("#z2ui5xl-message")).toBeHidden();
-  // office-init.js put back what Office.js took away
+  // office_init.js put back what Office.js took away
   expect(await page.evaluate(() => typeof window.history.pushState)).toBe(
     "function",
   );

@@ -12,6 +12,7 @@ Legend
 
 unreleased
 ----------
+* The BSP Z2UI5_XL failed to import (CL_O2_API_PAGES=>CREATE_NEW_PAGE invalid_name): history-cache.js and office-init.js are now history_cache.js and office_init.js - a BSP page name takes no hyphen
 + The add-in: abap2UI5 apps in the task pane of Microsoft Excel, with the real abap2UI5 UI5 frontend. The host page - the BSP application Z2UI5_XL, pulled with abapGit - loads Office.js from Microsoft's CDN, boots the system's UI5 and embeds the abap2UI5 app with z2ui5.embed.Container (@abap2ui5/embed-control 0.1.1) on the system's own origin; the app is the URL parameter app. Outside Office the page runs the same app with a message, for testing in a browser
 + Demo app Z2UI5_CL_XL_DEMO: a material list with Export to Excel (a new sheet with an Excel table), Take selection (the selected cells into the app), Follow selection and the bridge's errors, through z2ui5.cc.ExcelBridge - needs the abap2UI5 release with pull request #2847
 + npm run manifest: the add-in only manifest (XML) for one system and app - task pane, Excel, ReadWriteDocument, ExcelApi 1.4, a button on the Home tab - from manifest/manifest.template.xml, with a stable id, client, theme, startup parameters and extra app domains
