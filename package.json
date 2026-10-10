@@ -41,16 +41,16 @@
   "devDependencies": {
     "@abap2ui5/linter": "^0.8.5",
     "@abap2ui5/node-runtime": "1.146.0",
-    "@abaplint/cli": "^2.120.65",
+    "@abaplint/cli": "^2.120.73",
     "@abaplint/transpiler-cli": "2.13.93",
     "@eslint/js": "^10.0.1",
     "@openui5/sap.m": "1.136.21",
-    "@playwright/test": "1.63.0",
-    "eslint": "^10.11.0",
-    "express": "5.2.1",
-    "globals": "^17.12.0",
+    "@playwright/test": "1.64.0",
+    "eslint": "^10.12.0",
+    "express": "5.3.0",
+    "globals": "^17.13.0",
     "office-addin-manifest": "3.0.1",
-    "prettier": "^3.9.9",
+    "prettier": "^3.9.10",
     "ui5-1.71-sap.m": "npm:@openui5/sap.m@1.71.81"
   }
 }
